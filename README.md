@@ -2,7 +2,7 @@
 
 Technical Assignment: Microservice-based Pricing Platform using .NET 9.
 
-## Architecture Overvew
+## Architecture Overview
 
 The system consists of two microservices:
 1. **Rule Service**: Manages pricing rules (CRUD).
@@ -12,7 +12,7 @@ The system consists of two microservices:
 - **Microservices**: Decoupled services communicating via HTTP.
 - **Modern C#**: Utilizes **C# 12/13** features such as Primary Constructors, Collection Expressions (`[]`), and Required/Init properties for safety and conciseness.
 - **Background Worker**: Bulk jobs are processed asynchronously using `System.Threading.Channels` and `BackgroundService`.
-- **In-Memory Storage**: Rules and Jobs are stored in-memory, initialized from `rules.json` (Rule Service).
+- **Storage**: Pricing rules are persisted to `data/rules.json` (Rule Service) to endure service restarts. Bulk jobs are managed in-memory for fast processing.
 - **SOLID**: Implementation follows clean code principles with Dependency Injection and Service layer separation.
 
 ## Setup Guide
