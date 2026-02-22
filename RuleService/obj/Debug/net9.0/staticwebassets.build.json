@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "FaNWK0IETWl0J2VbaJLG+hUJiDuv+YxSS9+nZcOCDq8=",
+  "Source": "RuleService",
+  "BasePath": "_content/RuleService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "Type": "TimeWindowPromotion",
+    "DiscountPercentage": 20,
+    "FromTime": null,
+    "ToTime": null,
+    "Id": "58aeacf2-7c22-4b26-876f-268cc86ff5e5",
+    "Name": "Holiday Special 20% Off",
+    "Priority": 1,
+    "EffectiveFrom": "2024-01-01T00:00:00Z",
+    "EffectiveTo": "2026-12-31T23:59:59Z",
+    "IsActive": true
+  },
+  {
+    "Type": "RemoteAreaSurcharge",
+    "SurchargeAmount": 150.0,
+    "Area": "Islands \u0026 Mountains",
+    "Id": "20b1afa1-3a86-4a15-a609-45d82703170c",
+    "Name": "Extended Area Surcharge",
+    "Priority": 5,
+    "EffectiveFrom": "2024-01-01T00:00:00Z",
+    "EffectiveTo": null,
+    "IsActive": true
+  },
+  {
+    "Type": "WeightTier",
+    "MinWeight": 0,
+    "MaxWeight": 1000,
+    "PricePerKg": 2.5,
+    "Id": "4a8ce482-9e09-4eea-80a1-bcaaeb8832c7",
+    "Name": "Base Delivery Rate (0-1000kg)",
+    "Priority": 10,
+    "EffectiveFrom": "2024-01-01T00:00:00Z",
+    "EffectiveTo": null,
+    "IsActive": true
+  }
+]

@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  rule-service:
+    build:
+      context: ./RuleService
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pricing-service:
+    build:
+      context: ./PricingService
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - RuleService__BaseUrl=http://rule-service:5000
+      - ASPNETCORE_URLS=http://+:80
+    depends_on:
+      rule-service:
+        condition: service_healthy
+
+  pricing-web:
+    build:
+      context: ./pricingweb
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_RULE_SERVICE_URL=http://localhost:5000
+      - NEXT_PUBLIC_PRICING_SERVICE_URL=http://localhost:8080
+    depends_on:
+      - rule-service
+      - pricing-service
