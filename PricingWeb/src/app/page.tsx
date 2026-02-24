@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import {
   fetchRules,
   calculatePrice,
-  addRule,
   PricingRule,
   QuoteResponse,
 } from "@/lib/api";
@@ -28,7 +27,7 @@ export default function Home() {
         (r) => r.name.toLowerCase() !== "string",
       );
       setRules(filteredRules);
-    } catch (err) {
+    } catch {
       setError("Failed to load rules. Make sure RuleService is running.");
     } finally {
       setLoading(false);
@@ -42,7 +41,7 @@ export default function Home() {
       const result = await calculatePrice(quoteRequest);
       setQuoteResult(result);
       setError(null);
-    } catch (err) {
+    } catch {
       setError(
         "Failed to calculate price. Make sure PricingService is running.",
       );
