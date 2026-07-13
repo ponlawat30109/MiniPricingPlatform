@@ -1,0 +1,37 @@
+# .NET
+**/bin/
+**/obj/
+TestResults/
+coverage/
+
+# Node / Angular
+**/node_modules/
+**/.angular/
+**/dist/
+**/coverage/
+**/.npm-cache/
+**/test-results/
+.tools/
+
+# Sensitive local configuration
+**/.env
+**/.env.*
+!**/.env.example
+**/secrets.json
+**/*.pem
+**/*.key
+**/*.pfx
+**/*.p12
+**/appsettings.Local.json
+**/appsettings.*.Local.json
+
+# Editors and OS
+.vs/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local planning/runtime scratch
+.superpowers/
+.worktrees/

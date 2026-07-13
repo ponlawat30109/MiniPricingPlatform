@@ -1,0 +1,79 @@
+<div class="scrim" (click)="cancel.emit()"></div>
+<aside
+  class="panel"
+  cdkTrapFocus
+  [cdkTrapFocusAutoCapture]="true"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="rule-title"
+>
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">{{ rule() ? 'EDIT RULE' : 'NEW RULE' }}</p>
+      <h2 id="rule-title">{{ rule()?.name || 'Create pricing rule' }}</h2>
+    </div>
+    <button class="ghost icon" aria-label="Close rule editor" (click)="cancel.emit()">×</button>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>Name<input #initialFocus formControlName="name" /></label>
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <small class="field-error">Name is required.</small>
+    }
+    <div class="fields">
+      <label
+        >Type<select formControlName="type">
+          <option value="WeightTier">Weight tier</option>
+          <option value="RemoteAreaSurcharge">Area surcharge</option>
+          <option value="TimeWindowPromotion">Promotion</option>
+        </select></label
+      ><label>Priority<input type="number" min="0" formControlName="priority" /></label>
+    </div>
+    <div class="fields">
+      <label>Effective from<input type="date" formControlName="effectiveFrom" /></label
+      ><label>Effective to<input type="date" formControlName="effectiveTo" /></label>
+    </div>
+    <label class="check"><input type="checkbox" formControlName="isActive" /> Active</label>
+    @switch (form.controls.type.value) {
+      @case ('WeightTier') {
+        <div class="fields">
+          <label>Min weight<input type="number" formControlName="minWeight" /></label
+          ><label
+            >Max weight <span class="optional">Optional · no limit when empty</span
+            ><input type="number" formControlName="maxWeight" placeholder="No limit"
+          /></label>
+        </div>
+        <label>Price / kg<input type="number" formControlName="pricePerKg" /></label>
+      }
+      @case ('RemoteAreaSurcharge') {
+        <label
+          >Area<input
+            formControlName="area"
+            list="rule-area-options"
+            placeholder="Select or type an area" /></label
+        ><datalist id="rule-area-options">
+          @for (area of deliveryAreas; track area) {
+            <option [value]="area"></option>
+          }</datalist
+        ><label>Surcharge amount<input type="number" formControlName="surchargeAmount" /></label>
+      }
+      @case ('TimeWindowPromotion') {
+        <label
+          >Discount percentage<input type="number" formControlName="discountPercentage"
+        /></label>
+        <div class="fields">
+          <label>From time<input type="time" formControlName="fromTime" /></label
+          ><label>To time<input type="time" formControlName="toTime" /></label>
+        </div>
+      }
+    }
+    @if (saveError()) {
+      <p class="alert error" role="alert">{{ saveError() }}</p>
+    }
+    <div class="panel-actions">
+      <button type="button" class="ghost" (click)="cancel.emit()">Cancel</button
+      ><button class="primary" [disabled]="saving()">
+        {{ saving() ? 'Saving…' : 'Save rule' }}
+      </button>
+    </div>
+  </form>
+</aside>

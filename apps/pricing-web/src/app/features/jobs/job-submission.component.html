@@ -1,0 +1,24 @@
+<section class="surface form">
+  <div class="tabs">
+    <button [class.active]="mode() === 'json'" (click)="mode.set('json')">JSON</button
+    ><button [class.active]="mode() === 'csv'" (click)="mode.set('csv')">CSV file</button>
+  </div>
+  @if (mode() === 'json') {
+    <label
+      >Quotes JSON<textarea [(ngModel)]="quotesJson" rows="10" spellcheck="false"></textarea>
+    </label>
+    <p class="hint">An array of objects with weight and area.</p>
+  } @else {
+    <label class="drop"
+      >CSV file<input type="file" accept=".csv,text/csv" (change)="selectFile($event)" /><span>{{
+        selectedFile()?.name || 'Choose weight,area CSV'
+      }}</span></label
+    >
+  }
+  <button class="primary" (click)="submit()" [disabled]="submitting()">
+    {{ submitting() ? 'Submitting…' : 'Submit job' }}
+  </button>
+  @if (submissionError()) {
+    <p class="alert error" role="alert">{{ submissionError() }}</p>
+  }
+</section>

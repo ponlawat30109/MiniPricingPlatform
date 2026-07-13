@@ -1,0 +1,19 @@
+<header class="topbar">
+  <a class="brand" routerLink="/quotes"><span>PR</span><strong>Parcel Rates</strong></a>
+  <nav aria-label="Primary">
+    <a routerLink="/quotes" routerLinkActive="active">Quotes</a
+    ><a routerLink="/rules" routerLinkActive="active">Rules</a
+    ><a routerLink="/jobs" routerLinkActive="active">Jobs</a>
+  </nav>
+  <button
+    class="ghost theme"
+    type="button"
+    (click)="theme.toggle()"
+    [attr.aria-label]="'Use ' + (theme.theme() === 'light' ? 'dark' : 'light') + ' mode'"
+  >
+    {{ theme.theme() === 'light' ? '◐' : '○' }}
+    <span>{{ theme.theme() === 'light' ? 'Dark' : 'Light' }}</span>
+  </button>
+</header>
+<main id="main"><router-outlet /></main>
+<footer>Pricing operations console · Jobs are retained temporarily in memory.</footer>

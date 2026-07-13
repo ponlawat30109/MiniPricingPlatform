@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   rule-service:
     build:
-      context: ./RuleService
+      context: ./apps/rule-service
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
@@ -19,7 +17,7 @@ services:
 
   pricing-service:
     build:
-      context: ./PricingService
+      context: ./apps/pricing-service
       dockerfile: Dockerfile
     ports:
       - "8080:80"
@@ -32,13 +30,10 @@ services:
 
   pricing-web:
     build:
-      context: ./pricingweb
+      context: ./apps/pricing-web
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_RULE_SERVICE_URL=http://localhost:5000
-      - NEXT_PUBLIC_PRICING_SERVICE_URL=http://localhost:8080
+      - "3000:80"
     depends_on:
       - rule-service
       - pricing-service

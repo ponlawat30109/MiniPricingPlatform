@@ -1,0 +1,16 @@
+<section class="page">
+  <div class="heading">
+    <div>
+      <p class="eyebrow">BULK PROCESSING</p>
+      <h1>Quote jobs</h1>
+      <p>Submit many quotes and follow processing through completion.</p>
+    </div>
+  </div>
+  @if (loadError()) {
+    <p class="alert error" role="alert">{{ loadError() }}</p>
+  }
+  <div class="split jobs">
+    <app-job-submission (jobAccepted)="startPolling($event)" />
+    <app-job-status [job]="currentJob()" />
+  </div>
+</section>

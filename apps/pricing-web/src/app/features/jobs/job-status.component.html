@@ -1,0 +1,53 @@
+<section class="surface result" aria-live="polite">
+  <h2>Job status</h2>
+  @if (job(); as current) {
+    <div class="job-id">
+      <span>{{ current.jobId }}</span
+      ><strong class="status">{{ statusMark(current.status) }} {{ current.status }}</strong>
+    </div>
+    @if (current.status === 'Pending' || current.status === 'Processing') {
+      <div class="progress" aria-label="Job processing"></div>
+      <p class="muted">The worker is calculating each quote. This page polls automatically.</p>
+    }
+    @if (current.status === 'Failed') {
+      <p class="alert error">{{ current.failure?.message || 'The job failed.' }}</p>
+    }
+    @if (current.status === 'Completed' && current.results) {
+      <div class="result-head">
+        <p>{{ current.results.length }} results</p>
+        <button class="ghost" (click)="download()">Export CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Base</th>
+              <th>Surcharges</th>
+              <th>Discounts</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (result of current.results; track $index) {
+              <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ money(result.basePrice) }}</td>
+                <td>{{ money(result.surcharges) }}</td>
+                <td>{{ money(result.discounts) }}</td>
+                <td>
+                  <strong>{{ money(result.totalPrice) }}</strong>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  } @else {
+    <div class="empty">
+      <strong>No active job</strong>
+      <p>Submit JSON or CSV quotes to begin.</p>
+    </div>
+  }
+</section>

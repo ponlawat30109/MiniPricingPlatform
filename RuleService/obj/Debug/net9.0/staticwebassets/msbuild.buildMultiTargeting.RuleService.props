@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\RuleService.props" />
-</Project>
